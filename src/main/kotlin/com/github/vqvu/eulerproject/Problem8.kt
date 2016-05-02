@@ -50,9 +50,9 @@ fun <T, R> Sequence<T>.transform(tformCtor: (Sequence<T>) -> Sequence<R>) : Sequ
 class SlidingWindow<T>(
         val windowSize: Int,
         val delegate: Sequence<T>) : Sequence<List<T>> {
-    val slidingWindowScan: Sequence<List<T>> = SlidingWindowScan(
+    val slidingWindowScan: Sequence<List<T>> = SlidingWindowScan<T, List<T>>(
             windowSize,
-            { ArrayList<T>(it) as List<T> },
+            { ArrayList<T>(it) },
             { prev, next, memo -> createWindow(prev, next, memo) },
             delegate)
 
@@ -74,17 +74,6 @@ class SlidingWindow<T>(
                 SlidingWindow(windowSize, it)
             }
         }
-    }
-
-    inner class It(val delegate: Iterator<T>) : Iterator<T> {
-        override fun hasNext(): Boolean {
-            throw UnsupportedOperationException()
-        }
-
-        override fun next(): T {
-            throw UnsupportedOperationException()
-        }
-
     }
 }
 

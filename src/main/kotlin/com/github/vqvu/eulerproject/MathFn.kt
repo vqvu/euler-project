@@ -39,6 +39,11 @@ fun pow(num: Int, power: Int): Int {
 
 class MathFn {
     companion object {
+        fun roundUp(value: Int, mod: Int): Int {
+            check(mod > 0, { "mod must be positive." })
+            return ((value + mod - 1) / mod) * mod
+        }
+
         fun <T> reduce(): (initial: T, operator: (T, T) -> T, collection: Collection<T>) -> T {
             return { initial, operator, collection ->
                 collection.fold(initial, operator)

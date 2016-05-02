@@ -67,10 +67,10 @@ fun main(args: Array<String>) {
         }
     }
 
-    val result = reduce(Int::times, pythaTriples.first())
-    answer(result)
+    val result = pythaTriples.first().reduce(Int::times)
+    answer(31875000, result)
 }
 
-fun reduce(f: (Int, Int) -> Int, triple: Triple<Int, Int, Int>): Int {
-    return f(f(triple.first, triple.second), triple.third)
+fun <T> Triple<T, T, T>.reduce(f: (T, T) -> T): T {
+    return f(f(this.first, this.second), this.third)
 }
